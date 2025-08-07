@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
 <TITLE> Heart </TITLE>
@@ -72,13 +72,79 @@ transform: scale(1.2);
 transform: scale(1);
 }
 }
+.image-slideshow {
+  position: absolute;
+  top: 50%;
+  width: 150px;
+  height: 250px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.image-slideshow.left {
+  left: 10%;
+  animation: float-left 8s ease-in-out infinite;
+}
+
+.image-slideshow.right {
+  right: 10%;
+  animation: float-right 8s ease-in-out infinite;
+}
+
+.image-slideshow img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.image-slideshow img.active {
+  opacity: 1;
+}
+
+@keyframes float-left {
+  0%, 100% { transform: translateY(-50%) translateX(0px); }
+  50% { transform: translateY(-55%) translateX(-10px); }
+}
+
+@keyframes float-right {
+  0%, 100% { transform: translateY(-50%) translateX(0px); }
+  50% { transform: translateY(-45%) translateX(10px); }
+}
+
 </style>
 </HEAD>
 <BODY>
 <div class="box">
 <canvas id="pinkboard"></canvas>
+<div class="image-slideshow left">
+  <img src="images/1.jpg" class="slide active">
+  <img src="images/2.jpg" class="slide">
+</div>
+<div class="image-slideshow right">
+  <img src="images/3.jpg" class="slide active">
+  <img src="images/4.jpg" class="slide">
+</div>
+
+
 </div>
 <script>
+let slides = document.querySelectorAll('.image-slideshow .slide');
+let current = 0;
+
+setInterval(() => {
+  slides.forEach((slide, index) => {
+    if (index === current) {
+      slide.classList.add('active');
+    } else {
+      slide.classList.remove('active');
+    }
+  });
+  current = (current + 1) % slides.length;
+}, 3000);
 /*
 * Settings
 */
@@ -306,6 +372,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 margin-bottom: 5px;
-text-align: center;">I Love You Vy Vy </div>
+text-align: center;">Anh yêu em Vy Vy ❤️</div>
 </BODY>
-</HTML>
+</HTML> "
